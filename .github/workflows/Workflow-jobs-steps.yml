@@ -1,0 +1,30 @@
+name: Workflow jobs steps
+
+on:
+  workflow_dispatch:
+jobs:
+  job-1:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This is job 1"
+      - run: echo "Another step in job 1"
+      - run: echo "Final step in job 1"
+  job-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This is job 2 running parallel to job 1"
+  job-3:
+    runs-on: ubuntu-24.04
+    needs:
+      - job-1
+      - job-2
+    steps:
+      - run: echo "This is job 3 running after job 1 and job 2"
+  job-4:
+    runs-on: ubuntu-24.04
+    needs: 
+      - job-2
+      - job-3
+    steps:
+      - run: echo "This is job 4 running after job 2 and job 3"
+      - run: echo "Final step in job 4"  
